@@ -55,11 +55,9 @@ def generate_class_def(nom_classe: str, attributs: dict, nom_superclasse: str, a
 def generate_class_hierarchy(json_dict :dict, superclass_name:str=None,superclass_args:list=[]):
     # Initialisation de la chaîne de caractères contenant les définitions de classes
     class_defs = ""
-
-    for class_name,class_attrs in json_dict.items :
-        generate_class_def(class_name,class_attrs,superclass_name,superclass_args)
+    for class_name,class_attrs in json_dict.items():    
 #le résultat de la méthode generate_class_def() est stocker dans une variable 'class_def'
-        class_def = generate_class_def
+        class_def = generate_class_def(class_name,class_attrs,superclass_name,superclass_args)
 #Concaténer la définition de la classe à la chaîne de caractères class_defs
         class_defs = class_defs+class_def
 
@@ -68,13 +66,13 @@ def generate_class_hierarchy(json_dict :dict, superclass_name:str=None,superclas
 #    -Construire une liste "super_attr" contenant les attributs de la classe courante concaténées aux arguments de la superclasse
 #    -Puis, supprimer l'attribut 'subclasses' à partir de la liste créée
     if "subclasses" in class_attrs :
-        super_attrs = list(class_attrs.keys())+super_attrs
+        super_attrs = list(class_attrs.keys())+superclass_args
         super_attrs.remove('subclasses')
 # Ensuite, faire une récursion pour générer la définition de la sous-classe en utilisant la méthode generate_class_hierarchy
 # En passant le nom de la classe courante en tant que superclass_name et la liste super_attr en tant que superclass_args
 # Concaténer la définition de la sous-classe à la chaîne de caractères class_defs   
-        for class_name,class_attrs in json_dict.items : 
-            generate_class_hierarchy(json_dict.items, class_name,class_attrs)
+        for class_name,class_attrs in json_dict.items() : 
+            generate_class_hierarchy(json_dict, class_name,class_attrs)
             class_defs = class_def+class_defs
 # Retourne la chaîne de caractères contenant les définitions de classes    
     return class_defs
