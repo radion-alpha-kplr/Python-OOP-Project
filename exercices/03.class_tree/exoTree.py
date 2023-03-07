@@ -38,12 +38,13 @@ def create_tree_from_dict(tree, parent_node_id, parent_dict):
     #Parcourir récursivement le dictionnaire Python pour créer les noeuds de l'arbre (fonction ci dessous)
     #Retourner l'arbre
     for key, value in parent_dict.items():
-            if isinstance(value, dict):
+        if isinstance(value, dict):
                 # Créer un nouveau noeud pour la clé courante du dictionnaire
-                new_node_id = f"{parent_node_id}.{key}"
-                tree.create_node(tag=key, identifier=new_node_id, parent=parent_node_id)
+            new_node_id = f"{parent_node_id}.{key}"
+            tree.create_node(tag=key, identifier=new_node_id, parent=parent_node_id)
                 # Créer récursivement le sous-arbre pour le dictionnaire courant
-                create_tree_from_dict(tree, new_node_id, value)
+            create_tree_from_dict(tree, new_node_id, value)
+
 
                 # Créer un nouveau noeud pour la feuille courante du dictionnaire
                 #leaf_node_id = f"{parent_node_id}.{key}"
@@ -76,3 +77,8 @@ def main():
 if __name__ == '__main__':
     # Appeler la fonction principale
     main()
+
+
+
+
+
