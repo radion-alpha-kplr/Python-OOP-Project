@@ -65,15 +65,15 @@ def generate_class_hierarchy(json_dict :dict, superclass_name:str=None,superclas
 #Si "subclasses" existe parmi les attributs de la classe courante, faire:
 #    -Construire une liste "super_attr" contenant les attributs de la classe courante concaténées aux arguments de la superclasse
 #    -Puis, supprimer l'attribut 'subclasses' à partir de la liste créée
-    if "subclasses" in class_attrs :
-        super_attrs = list(class_attrs.keys())+superclass_args
-        super_attrs.remove('subclasses')
+    if "subclasses" in class_attrs:
+        super_attrs = (list(class_attrs.keys())+superclass_args)
+        super_attrs.remove("subclasses")
 # Ensuite, faire une récursion pour générer la définition de la sous-classe en utilisant la méthode generate_class_hierarchy
 # En passant le nom de la classe courante en tant que superclass_name et la liste super_attr en tant que superclass_args
 # Concaténer la définition de la sous-classe à la chaîne de caractères class_defs   
-        for class_name,class_attrs in json_dict.items() : 
-            generate_class_hierarchy(json_dict, class_name,class_attrs)
-            class_defs = class_def+class_defs
+        #for class_name,class_attrs in json_dict.items() : 
+        subclass_defs = generate_class_hierarchy(class_attrs("subclasses"), superclass_name,super_attrs)
+        class_defs += subclass_defs
 # Retourne la chaîne de caractères contenant les définitions de classes    
     return class_defs
 
@@ -90,4 +90,4 @@ def write_content(content,filename):
 
 content = generate_class_hierarchy(json_dict)
 
-write_content(content,'filename')
+write_content(content,'product_classes.py')
