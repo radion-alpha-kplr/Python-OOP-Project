@@ -39,7 +39,7 @@ class InventoryManager:
     La méthode remove_product est utilisée pour supprimer un produit de l'inventaire.
     Elle prend en argument un nom de produit et supprime l'entrée correspondante dans le dictionnaire 'inventory'.
     """
-    def remove_product(self, product_name):
+    def remove_product(self, product:Product):
         #Utiliser la méthode product_exists pour vérifier si le produit existe dans l'inventaire
         #Si le produit est trouvé, supprimer le de l'inventaire
         #Sinon, afficher un message d'erreur indiquant que le produit n'a pas été trouvé
