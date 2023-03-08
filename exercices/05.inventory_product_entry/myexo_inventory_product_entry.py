@@ -11,6 +11,9 @@ class InventoryProductEntry:
     def __init__(self, product:Product, quantity):
         self.product = product
         self.quantity = quantity
+        
+        self.sales = 0
+        self.expenses = 0
         """
         'product' : un objet de type produit qui rassemble les différents attributs et caractéristiques de ce dernier
         'quantity' : un entier qui représente le nombre des pièces du produit en question
@@ -22,8 +25,7 @@ class InventoryProductEntry:
         la variable 'expenses' qui stocke le total des dépenses pour restocker le produit
         
         """
-sales = 0
-expenses = 0
+
     #Méthode Sell
 """
 La méthode sell est utilisée pour retirer la quantité vendue du produit depuis le stock.
@@ -33,11 +35,11 @@ Elle met également à jour les ventes totales pour le produit.
     def sell(self, quantity):
         #Avant de mettre à jour l'état du stocke du produit, on doit vérifier si on a déjà une quantité suffisante à vendre.
         if self.quantity < quantity :
-            print('Le stock du produit [',product,'] eest insuffisant')
+            print('Le stock du produit ',[self.product],' est insuffisant')
             return False
         else :
             self.quantity -= quantity
-            sales = price*product
+            self.sales = self.product.price*quantity
             return True
         """
         En utilisant des conditions, vérifier: 
@@ -59,7 +61,7 @@ Elle met également à jour les ventes totales pour le produit.
     """
     def restock(self, quantity):
         self.quantity += quantity
-        self.expenses += cost*quantity
+        self.expenses += self.product.cost*quantity
         """
         Ajouter la quantité reçue à la quantité en stock
         Ajouter le coût total de la nouvelle quantité reçue  à la variable 'expenses' en multipliant la quantité reçue par le coût du produit
@@ -72,5 +74,5 @@ Elle met également à jour les ventes totales pour le produit.
 
     """
     def __repr__(self):
-        return print(produit,marque,quantity,price)
+        return print(self.product.name,self.marque,self.quantity,self.price)
         # Retourner une chaîne de caractères formatée contenant le nom du produit, la marque, la quantité en stock et le prix du produit.
