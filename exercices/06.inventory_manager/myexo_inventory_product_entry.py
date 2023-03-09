@@ -75,5 +75,5 @@ class InventoryProductEntry:
 
     """
     def __repr__(self):
-        return print(self.product.name,self.product.marque,self.quantity,self.product.price)
+        return print(self.product.name,self.product.marque,self.product.quantity,self.product.price)
         # Retourner une chaîne de caractères formatée contenant le nom du produit, la marque, la quantité en stock et le prix du produit.

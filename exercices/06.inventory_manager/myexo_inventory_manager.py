@@ -1,5 +1,11 @@
 #La classe "InventoryManager" est une classe qui permet de gérer un inventaire de produits. 
 
+from typing import Dict
+from myexo_inventory_product_entry import InventoryProductEntry
+from product_classes import Product
+
+
+
 class InventoryManager:
     # Initialisation de la classe
     def __init__(self):
@@ -13,6 +19,12 @@ class InventoryManager:
     Si c'est le cas, la fonction retourne True, sinon elle retourne False.
     """
     def product_exists(self,product:Product):
+        for clefs in self.inventory : 
+            if clefs == product.name :
+                return True 
+            else :
+                return False
+        
         """
         pour chaque 'inventory_product_entry_key' dans self.inventory faire:
             si 'inventory_product_entry_key' est égal à product.name alors:
@@ -20,12 +32,16 @@ class InventoryManager:
         retourner False
         """
     
-    #Méthode add_product
+#Méthode add_product
     """
     La méthode add_product est utilisée pour ajouter un nouveau produit à l'inventaire.
     Elle prend en argument un objet Product et une quantité initiale.
     """
     def add_product(self, product:Product, quantity):
+        if product in self.inventory :
+            print("ce produit existe déjà dans l'inventaire")
+        else :
+            self.inventory : Dict.append()
         """
         SI le produit existe déjà dans l'inventaire: 
             afficher un message pour informer l'utilisateur
@@ -40,6 +56,10 @@ class InventoryManager:
     Elle prend en argument un nom de produit et supprime l'entrée correspondante dans le dictionnaire 'inventory'.
     """
     def remove_product(self, product:Product):
+        if InventoryManager.product_exists(self,product) :
+            self.inventory.remove(product)
+        else :
+            print("le produit n'a pas été trouvé")
         #Utiliser la méthode product_exists pour vérifier si le produit existe dans l'inventaire
         #Si le produit est trouvé, supprimer le de l'inventaire
         #Sinon, afficher un message d'erreur indiquant que le produit n'a pas été trouvé
@@ -51,6 +71,11 @@ class InventoryManager:
     """
     
     def sell_product(self, product_name, quantity):
+        for clefs in self.inventory :
+            if clefs in self.inventory :
+                InventoryProductEntry.sell(self, quantity)
+            else :
+                print("le produit n'est pas en stock la vente à échoué")
         #Utiliser une boucle pour parcourir les clés du dictionnaire 'inventory'
         #Pour chaque itération, on vérifie si le nom du produit fourni est équal à la clé du dictionnaire.
         #Si le produit est trouvé, appeler la méthode 'sell' de l'objet InventoryProductEntry correspondant avec la quantité à vendre
@@ -62,6 +87,11 @@ class InventoryManager:
     Elle prend en argument le nom du produit et la quantité à restocker.
     """
     def restock_product(self, product_name, quantity):
+        if product_name in self.inventory :
+            InventoryProductEntry.restock(self, quantity)
+        else :
+            InventoryManager.add_product(product_name, quantity)
+        
         #Vérifier si le produit existe déjà dans l'inventaire
         #Si le produit est trouvé, appeler la méthode 'restock' de l'objet InventoryProductEntry correspondant avec la quantité à restocker
         #Si le réapprovisionnement est réussi, afficher un message de confirmation
@@ -74,6 +104,12 @@ class InventoryManager:
     Elle prend en entrée un nom de produit.
     """
     def get_product(self, name):
+        for inventory_product_entry_key in self.inventory :
+            if inventory_product_entry_key == name:
+                return self.inventory[inventory_product_entry_key].product
+                print("le produit n'existe pas")
+                
+        
         """
         pour chaque inventory_product_entry_key dans self.inventory:
             si inventory_product_entry_key == nom de produit:
