@@ -37,10 +37,13 @@ class InventoryManager:
     Elle prend en argument un objet Product et une quantité initiale.
     """
     def add_product(self, product:Product, quantity):
-        if product in self.inventory :
+        if self.product_exists in self.inventory :
             print("ce produit existe déjà dans l'inventaire")
         else :
-            self.inventory.update({product,quantity})
+            inventory_product_entry = InventoryProductEntry(product, quantity)
+            self.inventory[product.name]=inventory_product_entry
+   
+   
         """
         SI le produit existe déjà dans l'inventaire: 
             afficher un message pour informer l'utilisateur
@@ -55,8 +58,8 @@ class InventoryManager:
     Elle prend en argument un nom de produit et supprime l'entrée correspondante dans le dictionnaire 'inventory'.
     """
     def remove_product(self, product:Product):
-        if InventoryManager.product_exists(self,product) :
-            self.inventory.pop(product)
+        if self.product_exists(self,product) :
+            self.inventory.pop(product.name)
         else :
             print("le produit n'a pas été trouvé")
         #Utiliser la méthode product_exists pour vérifier si le produit existe dans l'inventaire
@@ -69,9 +72,9 @@ class InventoryManager:
     Elle prend en argument le nom du produit et la quantité à vendre.
     """
     
-    def sell_product(self, product_name, quantity):
+    def sell_product(self, product:Product, quantity):
         for clefs in self.inventory :
-            if clefs in self.inventory :
+            if clefs  == product.name:
                 InventoryProductEntry.sell(self, quantity)
             else :
                 print("le produit n'est pas en stock la vente à échoué")
@@ -87,10 +90,10 @@ class InventoryManager:
     """
     def restock_product(self, product:Product, quantity):
         if self.product_exists(product):
-            return self.inventory[product].restock(self, quantity)
+            self.inventory[product.name].restock(quantity)
         else :
             self.add_product(product, 0)
-            self.inventory[product].restock(self, quantity)
+            self.restock_product(product,quantity)
 
         #Vérifier si le produit existe déjà dans l'inventaire
         #Si le produit est trouvé, appeler la méthode 'restock' de l'objet InventoryProductEntry correspondant avec la quantité à restocker
@@ -107,7 +110,7 @@ class InventoryManager:
         for clef in self.inventory.items() :
             if clef == name:
                 return self.inventory[clef].product 
-            print("le produit n'existe pas")
+            print("le produit",name," n'existe pas")
             
 
     """
@@ -124,5 +127,5 @@ class InventoryManager:
     """
     def list_products(self):
         for clefs in self.inventory :
-            print(self.inventory.values())
+            print(self.inventory[clefs])
         return self.inventory        
