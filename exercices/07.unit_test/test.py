@@ -1,11 +1,15 @@
 #Importer les bibliothèques nécessaires
 import sys
 import unittest
+from myexo_inventory_manager import InventoryManager
+from product_classes import Chaise, Pantalon
+
 sys.path.extend(['.','..'])
 
+
 #Import des classes à tester
-from classes.product_classes import Chaise, Pantalon
-from inventory.stock_manager import InventoryManager
+from myexo_inventory_product_entry import InventoryProductEntry
+
 
 #Définition de la classe de test
 class TestInventoryManager(unittest.TestCase):
