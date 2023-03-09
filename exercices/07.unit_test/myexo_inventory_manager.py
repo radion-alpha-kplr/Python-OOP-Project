@@ -86,12 +86,13 @@ class InventoryManager:
     La méthode restock_product est utilisée pour restocker une quantité donnée d'un produit.
     Elle prend en argument le nom du produit et la quantité à restocker.
     """
-    def restock_product(self, product_name, quantity):
-        if product_name in self.inventory :
-            InventoryProductEntry.restock(self, quantity)
+    def restock_product(self, product:Product, quantity):
+        if self.product_exists(product):
+            return self.inventory[product].restock(self, quantity)
         else :
-            InventoryManager.add_product(self,product_name, quantity)
-        
+            self.add_product(product, 0)
+            self.inventory[product].restock(self, quantity)
+
         #Vérifier si le produit existe déjà dans l'inventaire
         #Si le produit est trouvé, appeler la méthode 'restock' de l'objet InventoryProductEntry correspondant avec la quantité à restocker
         #Si le réapprovisionnement est réussi, afficher un message de confirmation
@@ -104,24 +105,25 @@ class InventoryManager:
     Elle prend en entrée un nom de produit.
     """
     def get_product(self, name):
-        for clefs in self.inventory :
-            if clefs == name:
-                return self.inventory[clefs]
+        for clef in self.inventory.items() :
+            if clef == name:
+                return self.inventory[clef].product 
             print("le produit n'existe pas")
-                
-    def mafonction():
-        pass        
-"""
-        pour chaque inventory_product_entry_key dans self.inventory:
-            si inventory_product_entry_key == nom de produit:
-                retourner self.inventaire[inventory_product_entry_key].product
-        afficher un message pour indiquer que le produit n'existe pas
-"""
+            
 
-    #Méthode list_products
-"""
-        La méthode list_products(self) parcourt tous les produits de l'inventaire 
-        et affiche les informations relatives à chacun d'entre eux (nom, quantité disponible, prix unitaire, coût unitaire, prix de vente unitaire, bénéfice unitaire). 
-"""
+    """
+            pour chaque inventory_product_entry_key dans self.inventory:
+                si inventory_product_entry_key == nom de produit:
+                    retourner self.inventaire[inventory_product_entry_key].product
+            afficher un message pour indiquer que le produit n'existe pas
+    """
 
-   
+        #Méthode list_products
+    """
+            La méthode list_products(self) parcourt tous les produits de l'inventaire 
+            et affiche les informations relatives à chacun d'entre eux (nom, quantité disponible, prix unitaire, coût unitaire, prix de vente unitaire, bénéfice unitaire). 
+    """
+    def list_products(self):
+        for clefs in self.inventory :
+            print(self.inventory.values())
+        return self.inventory        

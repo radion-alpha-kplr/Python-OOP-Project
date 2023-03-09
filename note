@@ -1,8 +1,0 @@
-def list_products(self):
-        for clefs in self.inventory :
-            print(self.inventory.values())
-        """
-        pour chaque clé du dictionnaire 'inventory':
-            afficher la valeur correspondante à cette clé
-        retourner le dictionnaire inventaire
-        """
