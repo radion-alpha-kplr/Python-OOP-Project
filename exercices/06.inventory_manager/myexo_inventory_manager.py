@@ -41,7 +41,7 @@ class InventoryManager:
         if product in self.inventory :
             print("ce produit existe déjà dans l'inventaire")
         else :
-            self.inventory : Dict.append()
+            self.inventory.update({product,quantity})
         """
         SI le produit existe déjà dans l'inventaire: 
             afficher un message pour informer l'utilisateur
@@ -57,7 +57,7 @@ class InventoryManager:
     """
     def remove_product(self, product:Product):
         if InventoryManager.product_exists(self,product) :
-            self.inventory.remove(product)
+            self.inventory.pop(product)
         else :
             print("le produit n'a pas été trouvé")
         #Utiliser la méthode product_exists pour vérifier si le produit existe dans l'inventaire
@@ -90,7 +90,7 @@ class InventoryManager:
         if product_name in self.inventory :
             InventoryProductEntry.restock(self, quantity)
         else :
-            InventoryManager.add_product(product_name, quantity)
+            InventoryManager.add_product(self,product_name, quantity)
         
         #Vérifier si le produit existe déjà dans l'inventaire
         #Si le produit est trouvé, appeler la méthode 'restock' de l'objet InventoryProductEntry correspondant avec la quantité à restocker
@@ -104,18 +104,18 @@ class InventoryManager:
     Elle prend en entrée un nom de produit.
     """
     def get_product(self, name):
-        for inventory_product_entry_key in self.inventory :
-            if inventory_product_entry_key == name:
-                return self.inventory[inventory_product_entry_key].product
-                print("le produit n'existe pas")
+        for clefs in self.inventory :
+            if clefs == name:
+                return self.inventory[clefs]
+            print("le produit n'existe pas")
                 
         
-        """
+"""
         pour chaque inventory_product_entry_key dans self.inventory:
             si inventory_product_entry_key == nom de produit:
                 retourner self.inventaire[inventory_product_entry_key].product
         afficher un message pour indiquer que le produit n'existe pas
-        """
+"""
 
     #Méthode list_products
     """
@@ -123,6 +123,8 @@ class InventoryManager:
     et affiche les informations relatives à chacun d'entre eux (nom, quantité disponible, prix unitaire, coût unitaire, prix de vente unitaire, bénéfice unitaire). 
     """
     def list_products(self):
+        for clefs in self.inventory :
+            print(self.inventory.values())
         """
         pour chaque clé du dictionnaire 'inventory':
             afficher la valeur correspondante à cette clé
