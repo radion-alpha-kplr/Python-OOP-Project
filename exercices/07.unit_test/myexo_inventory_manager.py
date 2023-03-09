@@ -20,10 +20,9 @@ class InventoryManager:
     """
     def product_exists(self,product:Product):
         for clefs in self.inventory : 
-            if clefs == product.name :
+            if (clefs == product.name):
                 return True 
-            else :
-                return False
+        return False
         
         """
         pour chaque 'inventory_product_entry_key' dans self.inventory faire:
