@@ -5,7 +5,8 @@ from product_classes import Product
 class ProfitTracker:
 
     # Le constructeur initialise la variable balance (solde)
-    def __init__(self, balance):
+    def __init__(self):
+        self.total_cost = 0
         self.balance = 1000
         # Créer une variable 'balance' et l'initialiser à 1000 euros
         
@@ -15,10 +16,11 @@ class ProfitTracker:
     """   
     def buy_product(self, product: Product, quantity): 
         if self.balance < product.cost*quantity :
-            print("Le solde est insuffisant")
+            print(f"Vous avez {self.balance} euros. Pour restocker {quantity} {product.name}, vous avez besoin de {product.cost * quantity} euros")
             return False
         else :
             self.balance -= product.cost*quantity
+            print(f"balance après achat du produit {product.name} : {self.balance} euros")
             return True
             
         """
@@ -38,6 +40,7 @@ class ProfitTracker:
  
     def sell_product(self, product: Product, quantity):
         self.balance += product.price*quantity
+        print(f"balance après vente du produit {product.name}  : {self.balance} euros")
         
         # Met à jour le solde en ajoutant le prix du produit multiplié par la quantité vendue
 
